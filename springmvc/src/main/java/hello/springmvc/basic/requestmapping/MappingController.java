@@ -15,7 +15,7 @@ public class MappingController {
     }
 
     @GetMapping("/mapping/{userId}")
-    public String mappingPath(@PathVariable String userId){
+    public String mappingPath(@PathVariable String userId) {
         log.info("mappingPath {}", userId);
         return "ok";
     }
@@ -27,12 +27,14 @@ public class MappingController {
         return "ok";
     }
 
-    @PostMapping(value = "/mapping-consume", consumes = "application/json") public String mappingConsumes() {
+    @PostMapping(value = "/mapping-consume", consumes = "application/json")
+    public String mappingConsumes() {
         log.info("mappingConsumes");
         return "ok";
     }
 
-    @PostMapping(value = "/mapping-produce", produces = "text/html") public String mappingProduces() {
+    @PostMapping(value = "/mapping-produce", produces = "text/html")
+    public String mappingProduces() {
         log.info("mappingProduces");
         return "ok";
     }

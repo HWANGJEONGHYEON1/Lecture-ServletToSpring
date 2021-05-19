@@ -19,16 +19,16 @@ public class MappingClassController {
     @GetMapping("/{userId}")
     public String findUser(@PathVariable String userId) {
         return "get userid = " + userId;
-     }
+    }
 
     @PatchMapping("/{userId}")
     public String mod(@PathVariable String userId) {
         return "update userId=" + userId;
-     }
+    }
 
     @DeleteMapping("/{userId}")
     public String delete(@PathVariable String userId) {
         return "delete userId= " + userId;
-     }
+    }
 
 }
