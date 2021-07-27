@@ -23,7 +23,6 @@ public class Order extends BaseEntity{
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
-
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)

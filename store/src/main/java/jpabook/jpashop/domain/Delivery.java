@@ -10,7 +10,6 @@ public class Delivery extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
-
     private String city;
     private String street;
     private String zipcode;
