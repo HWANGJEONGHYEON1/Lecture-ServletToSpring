@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Controller
 @RequestMapping("/basic")
@@ -19,21 +21,21 @@ public class BasicController {
 
     @GetMapping("text-basic")
     public String textBasic(Model model) {
-        model.addAttribute("data", "hello-spring");
+        model.addAttribute("data", "Hello <b>Spring!</b>");
         return "basic/text-basic";
     }
 
     @GetMapping("text-unescaped")
-    public String textBasicUnescaped(Model model) {
-        model.addAttribute("data", "<h1>hello-spring</h1>git ");
+    public String textUnescaped(Model model) {
+        model.addAttribute("data", "Hello <b>Spring!</b>");
         return "basic/text-unescaped";
     }
 
-    @GetMapping("variable")
+    @GetMapping("/variable")
     public String variable(Model model) {
-        System.out.println("#### variable");
         User userA = new User("userA", 10);
-        User userB = new User("userB", 12);
+        User userB = new User("userB", 20);
+
         List<User> list = new ArrayList<>();
         list.add(userA);
         list.add(userB);
@@ -49,9 +51,9 @@ public class BasicController {
         return "basic/variable";
     }
 
-    @GetMapping("basic-objects")
+    @GetMapping("/basic-objects")
     public String basicObjects(HttpSession session) {
-        session.setAttribute("sessionData", "hello session");
+        session.setAttribute("sessionData", "Hello Session");
         return "basic/basic-objects";
     }
 
@@ -60,6 +62,19 @@ public class BasicController {
         public String hello(String data) {
             return "Hello " + data;
         }
+    }
+
+    @GetMapping("/date")
+    public String date(Model model) {
+        model.addAttribute("localDateTime", LocalDateTime.now());
+        return "basic/date";
+    }
+
+    @GetMapping("link")
+    public String link(Model model) {
+        model.addAttribute("param1", "data1");
+        model.addAttribute("param2", "data2");
+        return "basic/link";
     }
 
     @Data
@@ -71,5 +86,65 @@ public class BasicController {
             this.username = username;
             this.age = age;
         }
+    }
+    @GetMapping("/literal")
+    public String literal(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "basic/literal";
+    }
+
+    @GetMapping("/operation")
+    public String operation(Model model) {
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "Spring!");
+        return "basic/operation";
+    }
+
+    @GetMapping("/attribute")
+    public String attribute() {
+        return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model) {
+        addUsers(model);
+        return "basic/each";
+    }
+
+    @GetMapping("/condition")
+    public String condition(Model model) {
+        addUsers(model);
+        return "basic/condition";
+    }
+
+    @GetMapping("/comments")
+    public String comments(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "basic/comments";
+    }
+
+    @GetMapping("/block")
+    public String block(Model model) {
+        addUsers(model);
+        return "basic/block";
+    }
+
+    @GetMapping("/javascript")
+    public String javascript(Model model) {
+
+        model.addAttribute("user", new User("UserA", 10));
+        addUsers(model);
+
+        return "basic/javascript";
+    }
+
+
+    private void addUsers(Model model) {
+        List<User> list = new ArrayList<>();
+        list.add(new User("UserA", 10));
+        list.add(new User("UserB", 20));
+        list.add(new User("UserC", 30));
+
+        model.addAttribute("users", list);
     }
 }
