@@ -1,12 +1,15 @@
 package hello.advanced;
 
-import hello.advanced.trace.logtrace.FieldLogTrace;
 import hello.advanced.trace.logtrace.LogTrace;
 import hello.advanced.trace.logtrace.ThreadLocalFieldLogTrace;
+import hello.proxy.app.config.AppV1Config;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-@Configuration
+
+@Import(AppV1Config.class)
+@SpringBootApplication(scanBasePackages = "hello.proxy.app")
 public class LogTraceConfig {
 
     @Bean

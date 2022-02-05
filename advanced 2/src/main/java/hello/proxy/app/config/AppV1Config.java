@@ -1,6 +1,6 @@
-package hello.proxy.config;
+package hello.proxy.app.config;
 
-import hello.proxy.v1.*;
+import hello.proxy.app.v1.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

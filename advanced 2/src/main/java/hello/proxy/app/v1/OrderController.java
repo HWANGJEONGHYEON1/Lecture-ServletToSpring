@@ -1,4 +1,4 @@
-package hello.proxy.v1;
+package hello.proxy.app.v1;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
