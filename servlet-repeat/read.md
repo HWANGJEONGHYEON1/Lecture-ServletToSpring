@@ -38,6 +38,33 @@ redirect vs foward
 - 프론트 컨트롤러를 제외한 나머지 컨트롤러는 서블릿을 사용하지 않아도됨.
 - 스프링의 DispatcherServlet 이렇게 구현되어있음
 
-### v2
+### v2 - FrontControllerServletV2
 - view 분리
 
+### v3 - model 추가
+- 컨트롤러입장에서는 파라미터 정보가 필요하지, HttpServletRequest, HttpServletResponse가 필용벗다.
+- request 객체를 model로 사용하는 대신에 Model 객체를 만들어서 반환하면 된다.(request.setAttribute)
+- 서블릿 코드가 필요하지 않다.
+- ModelView
+  - 기존 컨트롤러에서 HttpServletRequest를 사용
+  - model도 setAttribute를 통해 데이터 저장 후 뷰로 전달
+  - 서블릿에 종속적이지 않음
+  - 각 컨틀롤러에는 필요한 로직만 들어감.
+  - 뷰리졸버를 통해 논리적인 이름과 물리적인 이름을 나눠놓으면 frontcontroller만 수정하면 된다.
+
+### v4 - 기본구조는 v3와 같지만 viewName만 반환
+
+
+### v5 - 어뎁터 패턴
+- 원하는 인터페이스를 다양하게 사용하고 싶을 때 사용
+- 현재는 제한되어있다.
+- 핸들러 어뎁터
+  - 중간에서 어뎁터 역할. 다양한 종류의 컨트롤러 호출
+- 핸들러 
+  - 컨트롤러의 이름을 더 넓은 범위인 핸들로러 변경. 어뎁터가 있기 때문에  
+- 정리
+  - 핸들러 매핑정보를 찾는다
+  - 핸들러 어뎁터 목록에 맞는 어뎁터 있는지 찾는다.
+  - 핸들러 어뎁터로 컨트롤러를 반환
+  - 모델 뷰 반환
+  - 뷰 리졸버에 맞는 모델뷰 반환
