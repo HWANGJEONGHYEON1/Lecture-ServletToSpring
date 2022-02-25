@@ -67,4 +67,14 @@ redirect vs foward
   - 핸들러 어뎁터 목록에 맞는 어뎁터 있는지 찾는다.
   - 핸들러 어뎁터로 컨트롤러를 반환
   - 모델 뷰 반환
-  - 뷰 리졸버에 맞는 모델뷰 반환
+  - 뷰 리졸버에 맞는 모델뷰 반 
+
+# spring mvc 구조
+- DispatcherServlet
+  - 프론트 컨트롤러
+  - 스프링 MVC 핵심
+  - HttpServlet 상속받음
+  - 스프링은 DispatcherServlet을 서블릿으로 자동으로 등록 (urlPattern = "/")에 대해 매핑
+  - 요청 흐름
+    - DispatcherServlet의 부모인 FrameworkServlet에서 service()가 호출 
+    - Framework.service()를 시작으로 여러 메서드가 호출되면서 DispatcherServlet.doDispatch()가 호출
