@@ -69,8 +69,9 @@ redirect vs foward
   - 모델 뷰 반환
   - 뷰 리졸버에 맞는 모델뷰 반 
 
-# spring mvc 구조
-- DispatcherServlet
+# spring mvc 
+
+## DispatcherServlet
   - 프론트 컨트롤러
   - 스프링 MVC 핵심
   - HttpServlet 상속받음
@@ -78,3 +79,56 @@ redirect vs foward
   - 요청 흐름
     - DispatcherServlet의 부모인 FrameworkServlet에서 service()가 호출 
     - Framework.service()를 시작으로 여러 메서드가 호출되면서 DispatcherServlet.doDispatch()가 호출
+
+## 핸들러 매핑과 핸들러 어뎁터
+
+- 컨트롤러가 호출되려면 2가지 필요
+  - HandlerMapping
+    - 스프링 빈의 이름으로 핸들러를 찾을 수 있는 핸들러 매핑이 필요
+    - 핸들러 매핑에서 이 컨트롤러를 찾을수 있어야한다.
+  - HandlerAdapter
+    - 핸들러 매핑을 통해 찾은 핸들러를 실행할 수 있는 핸들러 어뎁터가 필요
+    - Controller 인터페이스를 실행할 수 있는 어뎁터를 찾고 실행해야한다.
+- 스프링 부트가 자동으로 등록하는 핸들러 매핑과 핸들러 어뎁터
+  - HandlerMapping
+    - 0 : RequestMappingHandler => 애노테이션 기반의 핸들러인 @RequestMapping에서 사용
+    - 1 : BeanNameUrlHandlerMapping => 스프링 빈의 이름으로 핸들러를 찾는다
+  - HandlerAdapter
+    - 0 : RequestMappingHandlerAdapter => 애노테이션 기반의 핸들러인 @RequestMapping에서 사
+    - 1 : HttpRequestHandlerAdapter => HttpRequestHandler 처리
+    - 2 : SimpleControllerHandlerAdapter => Controller 인터페이스 처리(과거에 사용)
+
+
+## 뷰리졸버
+- 자동 등록하는 뷰 리졸버(주요 빈)
+  - BeanNameViewResolver => 빈이름으로 찾아서
+  - InternalResourceViewResolver => JSP를 처리할 수 있는 뷰를 반환
+- InternalResourceViewResolver
+  - 스프링부트는 이 리졸버를 자동으로 등록한다.
+  - 이 때 application.properties 등록한 prefix, suffix 설정정보를 사용해서 등록한다.
+
+## 실행 흐름
+1.핸들러 어뎁터 호출
+  - 핸들러 어뎁터를 통해 new-form이라는 논리 이름을 획득
+2. ViewResolver 호출
+  - 뷰 이름으로 viewResolver를 순서대로 호출
+  - InternalResourceViewResolver 호출
+3. InternalResourceViewResolver
+  - InternalResourceView를 반환
+4. InternalResourceView
+  - JSP 처럼 포워드 하는 기능이 있다.
+5. view.render()
+  - foward()를 통해 JSP 실행
+
+## @RequestMapping
+> 스프링은 애노테이션을 활용하여 매우 유연하고, 실용적인 컨트롤러를 만들었는대 바로 이것.
+애노태이션을 사용하는 컨트롤러
+- @Controller 
+  - 스프링이 자동으로 스프링 빈으로 등록. 스프링 mvc에서 애노테이션 기반 컨트롤러로 인식
+- @RequestMapping 
+  - 요청 정보를 매핑.
+  - Request
+- ModelAndView
+  - 모델과 뷰 정보를 담아 반환
+
+
