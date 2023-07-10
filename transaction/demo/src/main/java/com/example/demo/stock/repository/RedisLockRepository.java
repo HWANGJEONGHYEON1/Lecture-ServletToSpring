@@ -1,11 +1,13 @@
 package com.example.demo.stock.repository;
 
+import lombok.Getter;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
 @Component
+@Getter
 public class RedisLockRepository {
 
     private RedisTemplate<String, String> redisTemplate;
